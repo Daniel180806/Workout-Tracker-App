@@ -1,14 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Exercises
-    </ion-title>
+    <ion-title>Exercises</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ul>@for(x of exercises;track x){
-    <li>{{x.name}}</li>
-    }
-  </ul>
+  @for(x of exercises; track x){
+    <ion-card (click)="onExerciseClick(x)">
+      <ion-card-header>
+        <ion-card-title>{{ x.name }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  }
+
+  <ion-alert
+    [isOpen]="showAlert"
+    header="Exercise"
+    [message]="selectedName"
+    [buttons]="['OK']"
+    (didDismiss)="showAlert = false">
+  </ion-alert>
 </ion-content>
