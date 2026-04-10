@@ -1,16 +1,44 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot = "start">
-      <ion-back-button></ion-back-button>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Exercise Details</ion-title>
+    <ion-title>{{ exercise?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Exercise Details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  
+      
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ exercise?.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Category:</strong> {{ exercise?.category }}</p>
+      <p><strong>Level:</strong> {{ exercise?.level }}</p>
+      <p><strong>Force:</strong> {{ exercise?.force }}</p>
+      <p><strong>Equipment:</strong> {{ exercise?.equipment }}</p>
+      <p><strong>Primary Muscles:</strong> {{ exercise?.primaryMuscles?.join(', ') }}</p>
+      <p><strong>Secondary Muscles:</strong> {{ exercise?.secondaryMuscles?.join(', ') }}</p>
+
+      <h3>Instructions</h3>
+      <ol>
+        @for(step of exercise?.instructions; track step){
+          <li>{{ step }}</li>
+        }
+      </ol>
+
+      <div class="images-container">
+        <h3>Visual Instructions</h3>
+  @for(img of exercise?.images; track img){
+    <img [src]="'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/' + img"
+         [alt]="exercise?.name"
+         style="width: 40%; border-radius: 20px;">
+  }
+</div>
+      
+    </ion-card-content>
+  </ion-card>
 </ion-content>

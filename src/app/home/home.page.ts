@@ -24,6 +24,6 @@ export class HomePage implements OnInit {
 
   onExerciseClick(exercise: any) {
     this.selectedName = exercise.id;
-    this.router.navigate(['/exercise-details']);
+    this.router.navigate(['/exercise-details', exercise.id]);
   }
 }
