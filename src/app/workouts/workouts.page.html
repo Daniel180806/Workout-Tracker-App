@@ -5,9 +5,29 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+@if(workouts.length === 0){
+    <div style="text-align: center; margin-top: 50%;">
+      <p>No workouts yet. Create one!</p>
+    </div>
+  }
+
+  @for(workout of workouts; track workout){
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ workout.name }}</ion-card-title>
+        <ion-card-subtitle>{{ workout.exercises.length }} exercises</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        @for(exercise of workout.exercises; track exercise){
+          <p>{{ exercise.name }} — {{ exercise.sets }} sets x {{ exercise.reps }} reps</p>
+        }
+      </ion-card-content>
+    </ion-card>
+  }
+
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-  <ion-fab-button [routerLink]="['/create-workout']">
-    <ion-icon name="add"></ion-icon>
-  </ion-fab-button>
-</ion-fab>
+    <ion-fab-button [routerLink]="['/create-workout']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
