@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Create a Workout</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveWorkout()">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-item>
+    <ion-input [(ngModel)]="workoutName" placeholder="Workout Name" clearInput="true"></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Exercises</ion-label>
+      <ion-button (click)="toggleSearch()">Add</ion-button>
+    </ion-list-header>
+
+    @if(showSearch){
+      <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="onSearch()" placeholder="Search exercises..."></ion-searchbar>
+      @for(exercise of filteredExercises; track exercise){
+        <ion-item (click)="addExercise(exercise)">
+          <ion-label>{{ exercise.name }}</ion-label>
+        </ion-item>
+      }
+    }
+
+    @for(exercise of selectedExercises; track exercise){
+      <ion-item>
+        <ion-label>{{ exercise.name }}</ion-label>
+        <ion-label>SETS X REPS</ion-label>
+        <ion-input [(ngModel)]="exercise.sets" type="number" placeholder="Sets" slot="end" style="max-width: 60px"></ion-input>
+        <ion-input [(ngModel)]="exercise.reps" type="number" placeholder="Reps" slot="end" style="max-width: 60px"></ion-input>
+        <ion-button slot="end" color="danger" (click)="removeExercise(exercise)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>
