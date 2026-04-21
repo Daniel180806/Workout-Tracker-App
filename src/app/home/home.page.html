@@ -5,7 +5,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @for(x of exercises; track x){
+  <ion-searchbar placeholder="Search exercises..." (ionInput)="onSearch($event)"></ion-searchbar>
+  @for(x of filteredExercises; track x){
     <ion-card (click)="onExerciseClick(x)">
       <ion-card-header>
         <ion-card-title>{{ x.name }}</ion-card-title>

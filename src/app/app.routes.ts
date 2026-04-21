@@ -30,9 +30,4 @@ export const routes: Routes = [
     path: 'exercise-details/:id',
     loadComponent: () => import('./exercise-details/exercise-details.page').then(m => m.ExerciseDetailsPage),
   },
-  {
-    path: 'workouts',
-    loadComponent: () => import('./workouts/workouts.page').then(m => m.WorkoutsPage)
-  },
-
 ];
