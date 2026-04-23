@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonBackButton, IonButtons, IonButton, IonItem, IonInput, IonList, IonListHeader, IonLabel, IonSearchbar, IonIcon } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ExerciseService } from '../services/exercise-service';
-import { WorkoutService } from '../services/workout-service';
-
+import { Storage } from '@ionic/storage-angular'; 
 
 
 @Component({
@@ -25,8 +24,8 @@ export class CreateWorkoutPage implements OnInit {
 
   constructor(
     private exerciseService: ExerciseService,
-    private workoutService: WorkoutService,
-    private router: Router
+    private router: Router,
+    private storage: Storage
   ) {}
 
   ngOnInit() {
@@ -63,19 +62,14 @@ export class CreateWorkoutPage implements OnInit {
   }
 
   async saveWorkout() {
-  console.log('workout name:', this.workoutName);
-  console.log('exercises:', this.selectedExercises);
-  if (!this.workoutName) {
-    console.log('no workout name, returning early');
-    return;
-  }
+  const workouts = await this.storage.get('workouts') || [];
   const workout = {
     id: Date.now().toString(),
     name: this.workoutName,
     exercises: this.selectedExercises
   };
-  await this.workoutService.saveWorkout(workout);
-  console.log('saved, navigating...');
+  workouts.push(workout);
+  await this.storage.set('workouts', workouts);
   this.router.navigate(['/tabs/workouts']);
 }
 }

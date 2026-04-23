@@ -1,26 +1,34 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonButtons, } from '@ionic/angular/standalone';
 import { RouterLinkWithHref } from '@angular/router';
-import { WorkoutService } from '../services/workout-service';
-import { addIcons } from 'ionicons';
-import { add } from 'ionicons/icons';
+import { Storage } from '@ionic/storage-angular';
+
 
 @Component({
   selector: 'app-workouts',
   templateUrl: './workouts.page.html',
   styleUrls: ['./workouts.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, CommonModule, RouterLinkWithHref]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonButtons, CommonModule, RouterLinkWithHref]
 })
+
 export class WorkoutsPage {
+
   workouts: any[] = [];
 
-  constructor(private workoutService: WorkoutService) {
-    addIcons({ add });
+  constructor(private storage: Storage) {
+}
+
+  async deleteWorkout(workoutId: string) {
+    const workouts = await this.storage['get']('workouts') || [];
+  const updated = workouts.filter((w: any) => w.id !== workoutId);
+  await this.storage['set']('workouts', updated);
+  this.workouts = updated;
   }
 
   async ionViewWillEnter() {
-    this.workouts = await this.workoutService.getWorkouts();
+    await this.storage.create();
+    this.workouts = await this.storage.get('workouts') || [];
   }
 }
