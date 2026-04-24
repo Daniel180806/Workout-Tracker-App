@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar placeholder="Search exercises..." (ionInput)="onSearch($event)"></ion-searchbar>
+  <ion-searchbar placeholder="Search exercises..." [(ngModel)]="searchTerm" (ionInput)="onSearch()"></ion-searchbar>
   @for(x of filteredExercises; track x){
     <ion-card (click)="onExerciseClick(x)">
       <ion-card-header>

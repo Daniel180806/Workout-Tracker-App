@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonAlert, IonSearchbar } from '@ionic/angular/standalone';
 import { ExerciseService } from '../services/exercise-service';
 import { Router } from '@angular/router';
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonAlert, IonSearchbar],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonAlert, IonSearchbar, FormsModule],
 })
 export class HomePage implements OnInit {
   exercises: any[] = [];
@@ -30,8 +31,7 @@ export class HomePage implements OnInit {
     this.router.navigate(['/exercise-details', exercise.id]);
   }
 
-  onSearch(event: any) {
-  this.searchTerm = event.target.value;
+  onSearch() {
   this.filteredExercises = this.exercises.filter(e =>
     e.name.toLowerCase().includes(this.searchTerm.toLowerCase())
   );
