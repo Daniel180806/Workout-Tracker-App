@@ -19,17 +19,17 @@
       </ion-card-header>
       <ion-card-content>
         @for(exercise of workout.exercises; track exercise){
-          <p>{{ exercise.name }} — {{ exercise.sets }} sets x {{ exercise.reps }} reps</p>
+          <p>{{ exercise.name }} — {{ exercise.sets }} Sets x {{ exercise.reps }} Reps</p>
         }
       </ion-card-content>
         <ion-button shape="round" color="danger" (click)="deleteWorkout(workout.id)"> Delete 
-          <ion-icon name="trash"></ion-icon></ion-button>
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+        <ion-button shape="round" (click)="shareWorkout(workout)"> Share 
+          <ion-icon name="share-outline"></ion-icon>
+        </ion-button>
     </ion-card>
   }
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button [routerLink]="['/create-workout']">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  
 </ion-content>

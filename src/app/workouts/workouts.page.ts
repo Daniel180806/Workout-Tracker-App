@@ -21,14 +21,29 @@ export class WorkoutsPage {
 }
 
   async deleteWorkout(workoutId: string) {
-    const workouts = await this.storage['get']('workouts') || [];
+    const workouts = await this.storage.get('workouts') || [];
   const updated = workouts.filter((w: any) => w.id !== workoutId);
-  await this.storage['set']('workouts', updated);
+  await this.storage.set('workouts', updated);
   this.workouts = updated;
   }
+  
+  async shareWorkout(workout: any) {
+  const text = workout.exercises.map((e: any) => 
+    `${e.name} — ${e.sets} sets x ${e.reps} reps`).join('\n');
+  
+  if (navigator.share) {
+    await navigator.share({
+      title: workout.name,
+      text: text
+    });
+  } else {
+    // fallback if browser doesn't support share
+    alert('Sharing not supported on this browser');
+  }
+}
 
   async ionViewWillEnter() {
     await this.storage.create();
-    this.workouts = await this.storage.get('workouts') || [];
+    this.workouts = await this.storage.get('workouts');
   }
 }

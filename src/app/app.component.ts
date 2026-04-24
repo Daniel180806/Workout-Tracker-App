@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage-angular';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
 import { trash } from 'ionicons/icons';
+import { shareOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent {
   constructor(private storage: Storage) {
     addIcons({ add });
     addIcons({ trash });
+    addIcons({ shareOutline });
   }
 
   async ngOnInit() {

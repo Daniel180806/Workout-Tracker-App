@@ -70,6 +70,6 @@ export class CreateWorkoutPage implements OnInit {
   };
   workouts.push(workout);
   await this.storage.set('workouts', workouts);
-  this.router.navigate(['/tabs/workouts']);
+  window.location.href = '/tabs/workouts';
 }
 }
